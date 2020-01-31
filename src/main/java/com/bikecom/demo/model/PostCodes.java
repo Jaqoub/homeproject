@@ -6,19 +6,16 @@ import javax.persistence.*;
 public class PostCodes {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
-    private Integer postCodes;
     private Long id;
+    private Integer zipCode;
     private String status;
 
 
     public PostCodes(){}
 
-
-
-    public PostCodes(Long id, Integer postCode, String status) {
+    public PostCodes(Long id, Integer zipCode, String status) {
         this.id = id;
-        this.postCodes = postCode;
+        this.zipCode = zipCode;
         this.status = status;
     }
 
@@ -30,10 +27,13 @@ public class PostCodes {
         this.id = id;
     }
 
-    public Integer getPostCode() {
-        return postCodes;
+    public Integer getZipCode() {
+        return zipCode;
     }
 
+    public void setZipCode(Integer postCodes) {
+        this.zipCode = postCodes;
+    }
 
     public String getStatus() {
         return status;
@@ -43,17 +43,11 @@ public class PostCodes {
         this.status = status;
     }
 
-
-
-    public void setPostCodes(Integer postCodes) {
-        this.postCodes = postCodes;
-    }
-
     @Override
     public String toString() {
         return "PostCodes{" +
                 "id=" + id +
-                ", postCode=" + postCodes +
+                ", postCode=" + zipCode +
                 ", status='" + status + '\'' +
                 '}';
     }

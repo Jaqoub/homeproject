@@ -1,51 +1,69 @@
 package com.bikecom.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import java.util.List;
+import javax.persistence.*;
 
 @Entity
 public class Bicycle {
-
-   @Id
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String city;
-    @ManyToMany(cascade = CascadeType.ALL)
-    private PostCodes postCodes;
-    @JsonManagedReference
-    private List<Bicycle> assignedBicycle;
     private int numberOfBicycles;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "postcode_id")
+    private PostCodes postCodes;
 
 
-    public Bicycle(PostCodes postCodes){
-     this.postCodes = postCodes;
-    }
+ public Bicycle() {
 
-    public Bicycle(Long id, String name, List<Bicycle> assignedBicycle, PostCodes postCodes){
-     this.postCodes = postCodes;
-    }
+ }
 
-    public List<Bicycle> getAssignedBicycle(){return assignedBicycle;}
+ public Bicycle(String name, String city, int numberOfBicycles, PostCodes postCodes) {
+  this.name = name;
+  this.city = city;
+  this.numberOfBicycles = numberOfBicycles;
+  this.postCodes = postCodes;
+ }
 
-    public void setAssignedBicycle(List<Bicycle> assignedBicycle){this.assignedBicycle = assignedBicycle;}
+ public Long getId() {
+  return id;
+ }
 
-    public int getNumberOfBicycles(){return numberOfBicycles;}
+ public void setId(Long id) {
+  this.id = id;
+ }
 
-    public void setNumberOfBicycles(int numberOfBicycles){this.numberOfBicycles = numberOfBicycles;}
+ public String getName() {
+  return name;
+ }
 
+ public void setName(String name) {
+  this.name = name;
+ }
 
- @Override
- public String toString() {
-  return "Bicycle{" +
-          "id=" + id +
-          ", name='" + name + '\'' +
-          ", assignedBicycle=" + assignedBicycle +
-          ", numberOfBicycles=" + numberOfBicycles +
-          '}';
+ public String getCity() {
+  return city;
+ }
+
+ public void setCity(String city) {
+  this.city = city;
+ }
+
+ public int getNumberOfBicycles() {
+  return numberOfBicycles;
+ }
+
+ public void setNumberOfBicycles(int numberOfBicycles) {
+  this.numberOfBicycles = numberOfBicycles;
+ }
+
+ public PostCodes getPostCodes() {
+  return postCodes;
+ }
+
+ public void setPostCodes(PostCodes postCodes) {
+  this.postCodes = postCodes;
  }
 }

@@ -1,18 +1,18 @@
 package com.bikecom.demo.controller;
 
 import com.bikecom.demo.model.Bicycle;
-import com.bikecom.demo.model.PostCodes;
 import com.bikecom.demo.model.User;
 import com.bikecom.demo.repository.BicycleRepository;
 import com.bikecom.demo.repository.UserRepository;
-import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 import java.util.Optional;
 
@@ -64,7 +64,6 @@ public class UserController {
         Optional<Bicycle> bicycle = bicycleRepository.findById(bicycle_id);
 
         if(user.isPresent() && bicycle.isPresent()){
-            user.get().getAssignedBicycle().remove(bicycle.get());
             bicycle.get().setNumberOfBicycles(bicycle.get().getNumberOfBicycles() + 1);
             userRepository.save(user.get());
         }

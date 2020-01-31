@@ -1,13 +1,8 @@
 package com.bikecom.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.ManyToAny;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.sound.sampled.EnumControl;
-import java.util.List;
+
 
 @Entity
 public class User{
@@ -20,27 +15,28 @@ public class User{
     private String startTime;
     private String endTime;
     private String city;
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "postcode_id")
     private PostCodes postCodes;
-    @ManyToMany(mappedBy = "assignedBicycles", cascade = CascadeType.ALL)
-    private List<Bicycle> assignedBicycle;
-
-    public User(Long id, String name, String email){}
 
 
-    public User(String address, String name, int numberOfBicycles, String startTime,
-                String endTime, String city, PostCodes postCodes, List<Bicycle> assignedBicycle){
+    public User(){
+
+    }
+    public User(Long id, String name, String email){
+
+    }
+
+    public User(Long id, String address, String name, int numberOfBicycles, String startTime, String endTime, String city, PostCodes postCodes) {
+        this.id = id;
         this.address = address;
         this.name = name;
         this.numberOfBicycles = numberOfBicycles;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.city =city;
+        this.city = city;
         this.postCodes = postCodes;
-        this.assignedBicycle = assignedBicycle;
     }
-
 
     public Long getId() {
         return id;
@@ -106,15 +102,6 @@ public class User{
         this.postCodes = postCodes;
     }
 
-    public List<Bicycle> getAssignedBicycle() {
-        return assignedBicycle;
-    }
-
-    public void setAssignedBicycle(List<Bicycle> assignedBicycle) {
-        this.assignedBicycle = assignedBicycle;
-    }
-
-
     @Override
     public String toString() {
         return "User{" +
@@ -126,7 +113,6 @@ public class User{
                 ", endTime='" + endTime + '\'' +
                 ", city='" + city + '\'' +
                 ", postCodes=" + postCodes +
-                ", assignedBicycle=" + assignedBicycle +
                 '}';
     }
 }
